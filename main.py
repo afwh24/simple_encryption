@@ -17,6 +17,7 @@ def generateKey():
     with open(path+'/key', 'wb') as keyfile:
         keyfile.write(key)
 
+    return key
 #Read encryption key
 def readKey():
     try:
@@ -26,8 +27,9 @@ def readKey():
         return Fernet(key)
     
     except Exception as e:
-        generateKey();
+        key = generateKey();
         print("New keys have been generated due to: ", e, "\n")
+        return Fernet(key)
 
 #Encryption
 def encryption():
@@ -65,7 +67,7 @@ def decryption():
                     decrypted_file.write(decrypted)
 
         except Exception as e:
-            print(file, "is not encryptetd due to ", e, "\n")
+            print(file, "is not decrypted due to ", e, "\n")
             continue
         
     print("Files have been decrypted\n")
